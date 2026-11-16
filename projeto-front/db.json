@@ -1,0 +1,16 @@
+{
+  "rankings": [
+    {
+      "id": "1",
+      "nome": "Arthur",
+      "tempoTotalMinutos": 150,
+      "dataUltimoFoco": "2026-11-12T19:30:00Z"
+    },
+    {
+      "id": "2",
+      "nome": "Marcela",
+      "tempoTotalMinutos": 125,
+      "dataUltimoFoco": "2026-11-11T14:20:00Z"
+    }
+  ]
+}

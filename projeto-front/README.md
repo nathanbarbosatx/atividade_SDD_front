@@ -1,16 +1,68 @@
-# React + Vite
+# Pomodoro Ranqueado
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Aplicação front-end (React + Vite) para registrar sessões de foco Pomodoro de 25 minutos e exibir um ranking de participantes, usando uma API mock com JSON Server.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js e npm
+- Dependências instaladas (`npm install`)
 
-## React Compiler
+## Contrato da API (`db.json`)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Recurso `rankings` com os campos:
 
-## Expanding the Oxlint configuration
+- `id` (string)
+- `nome` (string)
+- `tempoTotalMinutos` (number)
+- `dataUltimoFoco` (string ISO 8601)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Exemplo em `db.json` na raiz do projeto.
+
+## Configuração
+
+A URL base da API é lida de `VITE_API_URL` (padrão: `http://localhost:3001`).
+
+Copie o exemplo se desejar customizar:
+
+```bash
+cp .env.example .env
+```
+
+## Como executar
+
+Em terminais separados:
+
+1. **API mock (JSON Server, porta 3001)**
+   ```bash
+   npm run api
+   ```
+   Endpoints principais: `GET/POST/PATCH http://localhost:3001/rankings`
+
+2. **Front-end (Vite)**
+   ```bash
+   npm run dev
+   ```
+   Acesse a URL exibida pelo Vite (geralmente `http://localhost:5173`).
+
+## Scripts
+
+- `npm run dev` — inicia o front-end
+- `npm run api` — inicia o JSON Server em `http://localhost:3001` com `db.json`
+- `npm run build` — build de produção
+- `npm run preview` — preview do build
+- `npm run lint` — executa o oxlint
+
+## Funcionalidades
+
+- Informar nome e iniciar contagem regressiva de 25 minutos.
+- Validação: nome vazio ou só com espaços impede o início.
+- Ao concluir 25 minutos: registra/atualiza o participante em `rankings`, soma +25 em `tempoTotalMinutos` e atualiza `dataUltimoFoco`.
+- "Desistir": encerra o timer, exibe a mensagem de foco quebrado e não envia tempo parcial à API.
+- Ranking: consulta `GET /rankings`, exibe posição, nome e tempo total ordenado por maior tempo, com estados de carregamento, erro e nova tentativa.
+
+## Estrutura relevante
+
+- `src/api/` — comunicação HTTP com a API
+- `src/components/` — componentes reutilizáveis
+- `src/pages/` — página principal
+- `specs/001-pomodoro-ranqueado/spec.md` — especificação da funcionalidade

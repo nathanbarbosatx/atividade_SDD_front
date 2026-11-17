@@ -1,42 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+/* Use Rubik for a clean, modern UI */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
 
+/*
+  Tokens and base variables.
+  We only edit existing files; these token aliases map the existing palette to clearer names
+  so future edits are easier. Values are kept close to original colors for conservative changes.
+*/
 :root {
-  --pergaminho-claro: #f6ecd2;
-  --pergaminho: #e9d6a8;
-  --pergaminho-escuro: #d8c08a;
-  --ouro: #c9a227;
-  --ouro-escuro: #b08d57;
-  --marrom: #5a4632;
-  --marrom-escuro: #3d2b14;
-  --vinho: #7b2d26;
-  --tinta: #2b2116;
+  /* New modern palette (complete identity change) */
+  --primary-50: #e6f7ff;
+  --primary-100: #cceeff;
+  --primary-500: #1890ff; /* main brand blue */
+  --primary-700: #0f62b8;
+  --secondary-500: #ff7a59; /* warm accent */
+  --bg: #f6f8fb; /* very light neutral */
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --text: #0f1724; /* deep slate */
+  --success: #16a34a;
+  --danger: #e11d48;
+  --radius-sm: 8px;
+  --radius-lg: 14px;
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --shadow-rgb: 16,24,40; /* softer modern shadow */
+  --glass-opacity: 0.6;
 
-  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: var(--tinta);
-  background-color: var(--pergaminho-escuro);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* typography tokens */
+  --font-body: 'Rubik', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-heading: 'Rubik', 'Poppins', sans-serif;
+  --font-scale: 1;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #d8c08a;
-  background-image:
-    radial-gradient(ellipse at top, rgba(255, 250, 235, 0.6), transparent 60%),
-    radial-gradient(ellipse at bottom, rgba(120, 90, 50, 0.18), transparent 55%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(120, 90, 50, 0.03),
-      rgba(120, 90, 50, 0.03) 2px,
-      transparent 2px,
-      transparent 6px
-    );
+  /* new identity uses Inter for body text */
+  font-family: var(--font-body);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--text);
+  background-color: var(--bg);
+  /* modern soft gradient background */
+  background-image: linear-gradient(180deg, rgba(246,249,253,0.6), rgba(246,249,253,0.6));
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -45,9 +57,27 @@ body {
 
 h1, h2, h3 {
   font-weight: 700;
+  /* headings keep the decorative serif font imported above */
+  font-family: 'Cinzel', 'Cinzel Decorative', 'EB Garamond', Georgia, serif;
 }
 
 button,
 input {
   font-family: inherit;
+}
+
+/* Accessible focus styles */
+:focus-visible {
+  outline: 3px solid rgba(var(--primary-500-rgb, 24,144,255), 0.18);
+  outline-color: var(--primary-500);
+  outline-offset: 3px;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

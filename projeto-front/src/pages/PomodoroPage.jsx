@@ -137,24 +137,40 @@ function PomodoroPage() {
 
       <div className="conteudo">
         <section className="coluna-principal">
-          <ControlesSessao
-            nome={nome}
-            onNomeChange={aoAlterarNome}
-            onIniciar={iniciarFoco}
-            onDesistir={desistir}
-            emExecucao={emExecucao}
-            erroValidacao={mensagemValidacao}
-          />
-          <TimerDisplay
-            segundosRestantes={segundosRestantes}
-            emExecucao={emExecucao}
-            status={statusSessao}
-          />
+          {/* TimerCard: primary focus */}
+          <div className="timer-card painel">
+            <div className="timer-hero">
+              <TimerDisplay
+                segundosRestantes={segundosRestantes}
+                emExecucao={emExecucao}
+                status={statusSessao}
+              />
+            </div>
+            <div className="timer-meta">
+              <span className="meta-item">Participantes: {rankings.length}</span>
+              <span className="meta-item">Duração padrão: 25 min</span>
+            </div>
+          </div>
+
+          {/* Controls placed close to timer for better UX */}
+          <div className="controls-bar painel">
+            <ControlesSessao
+              nome={nome}
+              onNomeChange={aoAlterarNome}
+              onIniciar={iniciarFoco}
+              onDesistir={desistir}
+              emExecucao={emExecucao}
+              erroValidacao={mensagemValidacao}
+            />
+          </div>
+
           <section className="painel mensagens-painel" aria-live="polite">
             {salvando ? <p className="mensagem">Registrando sessão na API...</p> : null}
             {mensagemSessao ? <p className="mensagem sucesso">{mensagemSessao}</p> : null}
             {erroSessao ? <p className="mensagem erro">{erroSessao}</p> : null}
           </section>
+
+          {/* Session history placeholder (keeps existing structure) */}
         </section>
 
         <aside className="coluna-ranking">

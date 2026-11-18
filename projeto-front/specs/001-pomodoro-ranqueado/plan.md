@@ -71,3 +71,16 @@ src/
 - **Timer/sessão**: estado ociosa/executando/concluída/interrompida; bloqueio de início sem nome válido e sem sessão simultânea; desistir limpa intervalo, reseta timer, mostra mensagem exata e não chama API.
 - **Ranking**: carregar no mount e após conclusão bem-sucedida; ordenar desc por `tempoTotalMinutos`; exibir loading/erro + retry.
 - **Execução**: `npm run api` (porta 3001) e `npm run dev`; `VITE_API_URL` configurável.
+
+### Melhoria visual: anel de progresso
+
+- Adicionar um anel verde com pontas arredondadas ao redor do tempo,
+  mantendo a contagem centralizada.
+- Usar a prop existente `segundosRestantes`: anel cheio em 25:00,
+  vazio em 00:00 e restaurado ao desistir.
+- Implementar em `src/components/TimerDisplay.jsx`, com estilos
+  responsivos em `src/App.css`, sem novas dependências.
+- Não alterar a lógica do timer, os controles, a API, o ranking ou a spec.
+- Validar início, avanço, conclusão e desistência, além da apresentação
+  em telas de 320 px, 375 px, 768 px e desktop, sem rolagem horizontal.
+- Executar `npm run lint` e `npm run build`.

@@ -6,7 +6,7 @@
 
 .cabecalho {
   text-align: left;
-  margin-bottom: 24px;
+  margin: 0 auto 24px; /* center within page width like the cards below */
   padding: 18px 22px;
   border-radius: var(--radius-lg);
   background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(246,249,253,0.95));
@@ -54,6 +54,9 @@
     grid-template-columns: 1fr;
     text-align: center;
     padding: 18px 16px;
+    width: 100%;
+    box-sizing: border-box; /* ensure padding included in width */
+    max-width: calc(100% - 32px); /* align lateral margins with page padding */
   }
   .cabecalho .subtitulo {
     justify-self: center;
@@ -321,8 +324,8 @@ button:focus-visible {
   border: none;
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,249,253,0.98));
-  min-width: 280px;
-  min-height: 140px;
+  min-width: 220px;
+  min-height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -331,6 +334,37 @@ button:focus-visible {
 .timer-display.ativo {
   color: var(--primary-700);
   box-shadow: 0 10px 30px rgba(var(--shadow-rgb), 0.06), inset 0 2px 6px rgba(var(--shadow-rgb), 0.02);
+}
+
+/* Ring styles for TimerDisplay */
+.timer-ring {
+  position: relative;
+  width: clamp(84px, 22vw, 220px);
+  height: clamp(84px, 22vw, 220px);
+  display: grid;
+  place-items: center;
+}
+.ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* start at top */
+}
+.ring-track {
+  stroke: #e5e7eb;
+}
+.ring-progress {
+  stroke: #16a34a;
+  transition: stroke-dashoffset 0.3s linear;
+}
+.time-label {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 700;
+  pointer-events: none;
 }
 
 .mensagens-painel {
@@ -407,6 +441,46 @@ button:focus-visible {
   .controls-bar { order: -1; padding: 12px; }
   .timer-card { padding: 14px; }
   .timer-hero { min-height: 90px; }
+}
+
+/* Mobile-specific adjustments to enlarge ring and timer numbers without overflow */
+@media (max-width: 420px) {
+  .pagina-pomodoro {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .cabecalho {
+    padding-left: 12px;
+    padding-right: 12px;
+    max-width: none;
+  }
+  .timer-display {
+    min-width: 100%;
+    min-height: auto;
+    padding: 12px;
+  }
+  .timer-ring {
+    width: min(86vw, 320px);
+    height: min(86vw, 320px);
+  }
+  .time-label { font-size: clamp(2rem, 10vw, 3.6rem); }
+}
+
+@media (max-width: 375px) {
+  .timer-ring {
+    width: min(90vw, 300px);
+    height: min(90vw, 300px);
+  }
+  .time-label { font-size: clamp(2.2rem, 12vw, 3.8rem); }
+}
+
+@media (max-width: 320px) {
+  .timer-ring {
+    width: min(94vw, 280px);
+    height: min(94vw, 280px);
+  }
+  .time-label { font-size: clamp(2.4rem, 14vw, 4rem); }
+  .timer-display { padding: 8px; }
 }
 
 /* reduce vertical gaps */

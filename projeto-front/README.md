@@ -51,6 +51,16 @@ Em terminais separados:
 - `npm run build` — build de produção
 - `npm run preview` — preview do build
 - `npm run lint` — executa o oxlint
+- `npm run test` — executa os testes unitários
+- `npm run test:watch` — testes em modo watch
+- `npm run test:coverage` — testes com relatório de cobertura
+
+## Testes
+
+- Stack: Vitest + Testing Library, ambiente `jsdom`.
+- Cobertura mínima exigida: 100% em statements, branches, functions e lines.
+- `src/main.jsx` é excluído da cobertura por ser apenas o bootstrap da aplicação.
+- A API é sempre mockada nos testes; nenhum teste acessa a rede real.
 
 ## Funcionalidades
 

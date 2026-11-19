@@ -67,7 +67,21 @@ function Ranking({ itens, carregando, erro, onTentarNovamente }) {
                     <tbody>
                       {ordenados.map((item, index) => (
                         <tr key={item.id ?? `${item.nome}-${index}`}>
-                          <td>{index + 1}º</td>
+                          <td>
+                            {index < 3 ? (
+                              <>
+                                <span
+                                  className="rank-medalha rank-medalha-tabela"
+                                  aria-hidden="true"
+                                >
+                                  {MEDALHAS[index]}
+                                </span>
+                                <span className="sr-only">{index + 1}º lugar</span>
+                              </>
+                            ) : (
+                              `${index + 1}º`
+                            )}
+                          </td>
                           <td>{item.nome}</td>
                           <td>{item.tempoTotalMinutos} min</td>
                         </tr>

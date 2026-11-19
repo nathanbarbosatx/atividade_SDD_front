@@ -187,6 +187,11 @@
   line-height: 1;
 }
 
+.rank-medalha-tabela {
+  font-size: 1.15rem;
+  vertical-align: middle;
+}
+
 .rank-name {
   flex: 1;
   margin-left: 8px;

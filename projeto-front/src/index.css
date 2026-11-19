@@ -19,6 +19,12 @@
   --text: #0f1724; /* deep slate */
   --success: #16a34a;
   --danger: #e11d48;
+  --medalha-ouro: #d9a404;
+  --medalha-prata: #8c96a3;
+  --medalha-bronze: #b06b3c;
+  --medalha-ouro-bg: rgba(217, 164, 4, 0.12);
+  --medalha-prata-bg: rgba(140, 150, 163, 0.12);
+  --medalha-bronze-bg: rgba(176, 107, 60, 0.12);
   --radius-sm: 8px;
   --radius-lg: 14px;
   --gap-sm: 8px;

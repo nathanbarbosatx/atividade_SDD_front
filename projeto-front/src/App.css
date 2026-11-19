@@ -148,13 +148,43 @@
   align-items: center;
   padding: 8px 10px;
   background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.98));
+  border-left: 4px solid transparent;
   border-radius: 8px;
 }
 
+.ranking-item.is-ouro {
+  border-left-color: var(--medalha-ouro);
+  background: var(--medalha-ouro-bg);
+}
+
+.ranking-item.is-prata {
+  border-left-color: var(--medalha-prata);
+  background: var(--medalha-prata-bg);
+}
+
+.ranking-item.is-bronze {
+  border-left-color: var(--medalha-bronze);
+  background: var(--medalha-bronze-bg);
+}
+
+.ranking-item.is-ouro .rank-name,
+.ranking-item.is-prata .rank-name,
+.ranking-item.is-bronze .rank-name {
+  font-weight: 600;
+}
+
 .rank-pos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
   font-weight: 700;
   color: var(--primary-700);
-  width: 28px;
+}
+
+.rank-medalha {
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1;
 }
 
 .rank-name {
@@ -165,6 +195,18 @@
 
 .rank-time {
   color: var(--muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* details summary styling */

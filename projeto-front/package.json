@@ -9,7 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "api": "json-server --watch db.json --port 3001",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
   },

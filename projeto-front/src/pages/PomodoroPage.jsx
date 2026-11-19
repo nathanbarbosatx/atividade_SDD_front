@@ -112,7 +112,7 @@ function PomodoroPage() {
     const tick = () => {
       const restante = Math.max(
         0,
-        Math.ceil(((fimSessaoRef.current ?? Date.now()) - Date.now()) / 1000)
+        Math.ceil((fimSessaoRef.current - Date.now()) / 1000)
       )
       setSegundosRestantes(restante)
       if (restante === 0) {
@@ -126,7 +126,6 @@ function PomodoroPage() {
   }, [statusSessao, limparIntervalo, concluirSessao])
 
   function iniciarFoco() {
-    if (statusSessao === 'executando') return
     if (!nome.trim()) {
       setMensagemValidacao('Informe seu nome antes de iniciar o foco.')
       return
@@ -141,7 +140,6 @@ function PomodoroPage() {
   }
 
   function desistir() {
-    if (statusSessao !== 'executando') return
     limparIntervalo()
     finalizandoRef.current = false
     fimSessaoRef.current = null
@@ -152,7 +150,6 @@ function PomodoroPage() {
   }
 
   function tentarRegistrarNovamente() {
-    if (statusSessao !== 'concluida' || salvando) return
     finalizandoRef.current = true
     registrarSessao(true)
   }
@@ -207,7 +204,7 @@ function PomodoroPage() {
             {salvando ? <p className="mensagem">Registrando sessão na API...</p> : null}
             {mensagemSessao ? <p className="mensagem sucesso">{mensagemSessao}</p> : null}
             {erroSessao ? <p className="mensagem erro">{erroSessao}</p> : null}
-            {erroSessao && statusSessao === 'concluida' && !salvando ? (
+            {erroSessao && statusSessao === 'concluida' ? (
               <button
                 type="button"
                 className="botao botao-secundario"

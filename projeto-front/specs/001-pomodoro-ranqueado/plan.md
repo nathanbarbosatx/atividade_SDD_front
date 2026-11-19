@@ -12,7 +12,7 @@ Implementar uma página única (PT-BR, estilo renascentista) em React+Vite com t
 **Language/Version**: JavaScript (ESM), React 19, Vite 8  
 **Primary Dependencies**: react, react-dom, vite, json-server (dev, mock API)  
 **Storage**: JSON Server (`db.json`, recurso `rankings`) — sem persistência local  
-**Testing**: N/A automatizado no projeto; verificação manual + `npm run lint`, `npm run build`  
+**Testing**: Vitest 5.1.1 + Testing Library + `@vitest/coverage-v8`; 62 testes com cobertura de 100% (statements, branches, functions e lines); `npm run test`, `npm run test:watch`, `npm run test:coverage`, `npm run lint` e `npm run build`
 **Target Platform**: Navegador web (desktop/mobile), API local via HTTP  
 **Project Type**: Web single-page frontend  
 **Performance Goals**: N/A (app local simples; timer UI 1s tick)  
@@ -48,17 +48,26 @@ specs/001-pomodoro-ranqueado/
 db.json
 .env.example
 index.html
+vitest.config.js
 src/
 ├── api/
-│   └── rankings.js
+│   ├── rankings.js
+│   └── rankings.test.js
 ├── components/
 │   ├── ControlesSessao.jsx
+│   ├── ControlesSessao.test.jsx
 │   ├── TimerDisplay.jsx
-│   └── Ranking.jsx
+│   ├── TimerDisplay.test.jsx
+│   ├── Ranking.jsx
+│   └── Ranking.test.jsx
 ├── pages/
-│   └── PomodoroPage.jsx
+│   ├── PomodoroPage.jsx
+│   └── PomodoroPage.test.jsx
+├── test/
+│   └── setup.js
 ├── App.jsx
 ├── App.css
+├── App.test.jsx
 ├── index.css
 └── main.jsx
 ```

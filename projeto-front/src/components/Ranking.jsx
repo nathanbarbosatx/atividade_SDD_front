@@ -1,3 +1,6 @@
+const MEDALHAS = ['🥇', '🥈', '🥉']
+const CLASSES_POSICAO = ['is-ouro', 'is-prata', 'is-bronze']
+
 function Ranking({ itens, carregando, erro, onTentarNovamente }) {
   if (carregando) {
     return (
@@ -35,8 +38,16 @@ function Ranking({ itens, carregando, erro, onTentarNovamente }) {
         <>
           <div className="ranking-compact">
             {top3.map((item, index) => (
-              <div className="ranking-item" key={item.id ?? `${item.nome}-top-${index}`}>
-                <span className="rank-pos">{index + 1}</span>
+              <div
+                className={`ranking-item ${CLASSES_POSICAO[index]}`}
+                key={item.id ?? `${item.nome}-top-${index}`}
+              >
+                <span className="rank-pos">
+                  <span className="rank-medalha" aria-hidden="true">
+                    {MEDALHAS[index]}
+                  </span>
+                  <span className="sr-only">{index + 1}º lugar</span>
+                </span>
                 <span className="rank-name">{item.nome}</span>
                 <span className="rank-time">{item.tempoTotalMinutos} min</span>
               </div>

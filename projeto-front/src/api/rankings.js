@@ -17,13 +17,30 @@ function normalizeName(name) {
   return name.trim().toLocaleLowerCase('pt-BR')
 }
 
-export async function registrarSessaoConcluida(nomeParticipante) {
+const JANELA_DUPLICIDADE_MS = 15000
+
+function foiRegistradaRecentemente(existente, agoraMs) {
+  if (!existente?.dataUltimoFoco) return false
+  const registradaEm = new Date(existente.dataUltimoFoco).getTime()
+  if (Number.isNaN(registradaEm)) return false
+  return Math.abs(agoraMs - registradaEm) < JANELA_DUPLICIDADE_MS
+}
+
+export async function registrarSessaoConcluida(
+  nomeParticipante,
+  { verificarDuplicidade = false } = {}
+) {
   const nome = nomeParticipante.trim()
   const rankings = await getRankings()
   const existente = (rankings || []).find(
     (item) => normalizeName(item.nome) === normalizeName(nome)
   )
-  const agora = new Date().toISOString()
+  const agoraMs = Date.now()
+  const agora = new Date(agoraMs).toISOString()
+
+  if (verificarDuplicidade && foiRegistradaRecentemente(existente, agoraMs)) {
+    return existente
+  }
 
   if (existente) {
     const payload = {

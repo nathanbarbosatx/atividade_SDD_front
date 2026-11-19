@@ -53,6 +53,25 @@ function PomodoroPage() {
     return () => limparIntervalo()
   }, [limparIntervalo])
 
+  const registrarSessao = useCallback(
+    async (verificarDuplicidade = false) => {
+      setSalvando(true)
+      setErroSessao('')
+      setMensagemSessao('')
+      try {
+        await registrarSessaoConcluida(nome, { verificarDuplicidade })
+        setMensagemSessao('Sessão concluída! 25 minutos adicionados ao seu tempo total.')
+        await carregarRanking()
+      } catch {
+        setErroSessao('Não foi possível registrar a sessão concluída. Tente novamente mais tarde.')
+      } finally {
+        setSalvando(false)
+        finalizandoRef.current = false
+      }
+    },
+    [carregarRanking, nome]
+  )
+
   const concluirSessao = useCallback(async () => {
     if (finalizandoRef.current) return
     finalizandoRef.current = true
@@ -60,20 +79,8 @@ function PomodoroPage() {
     limparIntervalo()
     setStatusSessao('concluida')
     setSegundosRestantes(0)
-    setSalvando(true)
-    setErroSessao('')
-    setMensagemSessao('')
-    try {
-      await registrarSessaoConcluida(nome)
-      setMensagemSessao('Sessão concluída! 25 minutos adicionados ao seu tempo total.')
-      await carregarRanking()
-    } catch {
-      setErroSessao('Não foi possível registrar a sessão concluída. Tente novamente mais tarde.')
-    } finally {
-      setSalvando(false)
-      finalizandoRef.current = false
-    }
-  }, [carregarRanking, limparIntervalo, nome])
+    await registrarSessao(false)
+  }, [limparIntervalo, registrarSessao])
 
   useEffect(() => {
     if (statusSessao !== 'executando') return
@@ -118,6 +125,12 @@ function PomodoroPage() {
     setSegundosRestantes(DURACAO_SESSAO)
     setErroSessao(MENSAGEM_FOCO_QUEBRADO)
     setMensagemSessao('')
+  }
+
+  function tentarRegistrarNovamente() {
+    if (statusSessao !== 'concluida' || salvando) return
+    finalizandoRef.current = true
+    registrarSessao(true)
   }
 
   function aoAlterarNome(valor) {
@@ -170,6 +183,15 @@ function PomodoroPage() {
             {salvando ? <p className="mensagem">Registrando sessão na API...</p> : null}
             {mensagemSessao ? <p className="mensagem sucesso">{mensagemSessao}</p> : null}
             {erroSessao ? <p className="mensagem erro">{erroSessao}</p> : null}
+            {erroSessao && statusSessao === 'concluida' && !salvando ? (
+              <button
+                type="button"
+                className="botao botao-secundario"
+                onClick={tentarRegistrarNovamente}
+              >
+                Tentar registrar novamente
+              </button>
+            ) : null}
           </section>
 
           {/* Session history placeholder (keeps existing structure) */}

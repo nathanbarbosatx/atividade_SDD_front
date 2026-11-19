@@ -210,7 +210,7 @@
 
 .campo-nome {
   display: block;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-heading);
   font-size: 0.95rem;
   color: var(--marrom-escuro);
   margin-bottom: 6px;
@@ -220,7 +220,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: 10px 12px;
-  font-family: 'EB Garamond', Georgia, serif;
+  font-family: var(--font-body);
   font-size: 1.05rem;
   color: var(--marrom-escuro);
   background: #fffdf7;
@@ -247,7 +247,7 @@
 }
 
 .botao {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-heading);
   font-size: 0.95rem;
   padding: 10px 16px;
   border-radius: 999px; /* pill */
@@ -309,7 +309,7 @@ button:focus-visible {
 
 .timer-status {
   margin: 0 0 6px;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-heading);
   font-size: 0.95rem;
   color: var(--vinho);
   letter-spacing: 0.05em;
@@ -404,7 +404,7 @@ button:focus-visible {
 }
 
 .tabela-ranking th {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-heading);
   font-size: 0.9rem;
   color: var(--marrom-escuro);
   background: rgba(176, 141, 87, 0.12);

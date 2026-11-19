@@ -212,7 +212,7 @@
   display: block;
   font-family: var(--font-heading);
   font-size: 0.95rem;
-  color: var(--marrom-escuro);
+  color: var(--text);
   margin-bottom: 6px;
 }
 
@@ -222,14 +222,14 @@
   padding: 10px 12px;
   font-family: var(--font-body);
   font-size: 1.05rem;
-  color: var(--marrom-escuro);
+  color: var(--text);
   background: #fffdf7;
   border: 1px solid rgba(var(--shadow-rgb), 0.06);
   border-radius: 10px;
 }
 
 .entrada-nome:focus {
-  outline: 2px solid var(--ouro);
+  outline: 2px solid var(--primary-500);
   outline-offset: 1px;
 }
 
@@ -311,7 +311,7 @@ button:focus-visible {
   margin: 0 0 6px;
   font-family: var(--font-heading);
   font-size: 0.95rem;
-  color: var(--vinho);
+  color: var(--primary-700);
   letter-spacing: 0.05em;
 }
 
@@ -406,7 +406,7 @@ button:focus-visible {
 .tabela-ranking th {
   font-family: var(--font-heading);
   font-size: 0.9rem;
-  color: var(--marrom-escuro);
+  color: var(--text);
   background: rgba(176, 141, 87, 0.12);
 }
 
@@ -416,7 +416,7 @@ button:focus-visible {
 
 .tabela-ranking tbody tr:first-child td {
   font-weight: 600;
-  color: var(--vinho);
+  color: var(--primary-700);
 }
 
 @media (max-width: 860px) {

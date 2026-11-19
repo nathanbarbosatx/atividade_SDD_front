@@ -22,7 +22,6 @@ function PomodoroPage() {
   const [erroRanking, setErroRanking] = useState('')
 
   const intervaloRef = useRef(null)
-  const finalizandoRef = useRef(false)
   const fimSessaoRef = useRef(null)
 
   const buscarRanking = useCallback(async () => {
@@ -90,15 +89,12 @@ function PomodoroPage() {
         setErroSessao('Não foi possível registrar a sessão concluída. Tente novamente mais tarde.')
       } finally {
         setSalvando(false)
-        finalizandoRef.current = false
       }
     },
     [carregarRanking, nome]
   )
 
   const concluirSessao = useCallback(async () => {
-    if (finalizandoRef.current) return
-    finalizandoRef.current = true
     fimSessaoRef.current = null
     limparIntervalo()
     setStatusSessao('concluida')
@@ -133,7 +129,6 @@ function PomodoroPage() {
     setMensagemValidacao('')
     setErroSessao('')
     setMensagemSessao('')
-    finalizandoRef.current = false
     fimSessaoRef.current = Date.now() + DURACAO_SESSAO * 1000
     setSegundosRestantes(DURACAO_SESSAO)
     setStatusSessao('executando')
@@ -141,7 +136,6 @@ function PomodoroPage() {
 
   function desistir() {
     limparIntervalo()
-    finalizandoRef.current = false
     fimSessaoRef.current = null
     setStatusSessao('interrompida')
     setSegundosRestantes(DURACAO_SESSAO)
@@ -150,7 +144,6 @@ function PomodoroPage() {
   }
 
   function tentarRegistrarNovamente() {
-    finalizandoRef.current = true
     registrarSessao(true)
   }
 

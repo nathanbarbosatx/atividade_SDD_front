@@ -25,22 +25,46 @@ function PomodoroPage() {
   const finalizandoRef = useRef(false)
   const fimSessaoRef = useRef(null)
 
+  const buscarRanking = useCallback(async () => {
+    try {
+      const dados = await getRankings()
+      setRankings(Array.isArray(dados) ? dados : [])
+      setErroRanking('')
+    } catch {
+      setErroRanking('Não foi possível carregar o ranking. Verifique a API e tente novamente.')
+    }
+  }, [])
+
   const carregarRanking = useCallback(async () => {
     setCarregandoRanking(true)
     setErroRanking('')
     try {
-      const dados = await getRankings()
-      setRankings(Array.isArray(dados) ? dados : [])
-    } catch {
-      setErroRanking('Não foi possível carregar o ranking. Verifique a API e tente novamente.')
+      await buscarRanking()
     } finally {
       setCarregandoRanking(false)
     }
-  }, [])
+  }, [buscarRanking])
 
   useEffect(() => {
-    carregarRanking()
-  }, [carregarRanking])
+    let ativo = true
+    getRankings()
+      .then((dados) => {
+        if (!ativo) return
+        setRankings(Array.isArray(dados) ? dados : [])
+        setErroRanking('')
+      })
+      .catch(() => {
+        if (ativo) {
+          setErroRanking('Não foi possível carregar o ranking. Verifique a API e tente novamente.')
+        }
+      })
+      .finally(() => {
+        if (ativo) setCarregandoRanking(false)
+      })
+    return () => {
+      ativo = false
+    }
+  }, [])
 
   const limparIntervalo = useCallback(() => {
     if (intervaloRef.current) {

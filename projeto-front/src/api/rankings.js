@@ -26,6 +26,8 @@ function foiRegistradaRecentemente(existente, agoraMs) {
   return Math.abs(agoraMs - registradaEm) < JANELA_DUPLICIDADE_MS
 }
 
+// O registro lê o ranking e depois grava (POST/PATCH) sem transação atômica.
+// Duas conclusões simultâneas do mesmo participante podem gerar lost update.
 export async function registrarSessaoConcluida(
   nomeParticipante,
   { verificarDuplicidade = false } = {}

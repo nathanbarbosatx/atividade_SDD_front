@@ -60,6 +60,14 @@ Em terminais separados:
 - "Desistir": encerra o timer, exibe a mensagem de foco quebrado e não envia tempo parcial à API.
 - Ranking: consulta `GET /rankings`, exibe posição, nome e tempo total ordenado por maior tempo, com estados de carregamento, erro e nova tentativa.
 
+## Limitações conhecidas
+
+- O registro de sessão faz `GET /rankings` e depois `POST`/`PATCH`. O JSON Server
+  não oferece transação nem incremento atômico, então duas conclusões simultâneas
+  do mesmo participante podem causar atualização perdida (lost update). Para uso
+  local/educacional isso é aceitável; a proteção existente cobre apenas o retry
+  da mesma sessão, ignorando gravações repetidas dentro de 15 segundos.
+
 ## Estrutura relevante
 
 - `src/api/` — comunicação HTTP com a API

@@ -131,7 +131,8 @@
 
 /* compact layout for controls: rely on ControlesSessao markup but ensure it adapts */
 .controls-bar .campo-nome {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  width: 100%;
 }
 
 /* Ranking compact list */
@@ -431,14 +432,8 @@ button:focus-visible {
   display: none !important;
 }
 
-/* compact control input layout */
-.controls-bar .campo-nome {
-  margin-bottom: 8px;
-  width: 100%;
-}
-
 @media (max-width: 700px) {
-  .controls-bar { order: -1; padding: 12px; }
+  .controls-bar { padding: 12px; }
   .timer-card { padding: 14px; }
   .timer-hero { min-height: 90px; }
 }

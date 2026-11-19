@@ -36,11 +36,12 @@ function Ranking({ itens, carregando, erro, onTentarNovamente }) {
         <p className="mensagem">Nenhum participante registrado ainda.</p>
       ) : (
         <>
-          <div className="ranking-compact">
+          <div className="ranking-compact" role="list" aria-label="Top 3 participantes">
             {top3.map((item, index) => (
               <div
                 className={`ranking-item ${CLASSES_POSICAO[index]}`}
                 key={item.id ?? `${item.nome}-top-${index}`}
+                role="listitem"
               >
                 <span className="rank-pos">
                   <span className="rank-medalha" aria-hidden="true">

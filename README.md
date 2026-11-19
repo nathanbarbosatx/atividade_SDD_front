@@ -9,11 +9,11 @@ A aplicação usa React 19 + Vite 8 no front-end e JSON Server como API mock loc
 Integrantes:
 
 - Nathan Barbosa Teixeira
-- Marcela Vicente (`marcelabastosv`)
+- Marcela Vicente
 - Gabrielly Marquez Sarzuri
-- Arthur Amaral (`Arthur-Amaral-cloud`)
-- Matheus Scalabrin (`mcsscalabrin`)
-- Gabriel Camargo (`1camargo`)
+- Arthur Amaral
+- Matheus Scalabrin
+- Gabriel Camargo
 
 ## Framework utilizado
 

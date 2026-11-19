@@ -23,6 +23,7 @@ function PomodoroPage() {
 
   const intervaloRef = useRef(null)
   const finalizandoRef = useRef(false)
+  const fimSessaoRef = useRef(null)
 
   const carregarRanking = useCallback(async () => {
     setCarregandoRanking(true)
@@ -55,6 +56,7 @@ function PomodoroPage() {
   const concluirSessao = useCallback(async () => {
     if (finalizandoRef.current) return
     finalizandoRef.current = true
+    fimSessaoRef.current = null
     limparIntervalo()
     setStatusSessao('concluida')
     setSegundosRestantes(0)
@@ -76,23 +78,21 @@ function PomodoroPage() {
   useEffect(() => {
     if (statusSessao !== 'executando') return
 
-    intervaloRef.current = setInterval(() => {
-      setSegundosRestantes((atual) => {
-        if (atual <= 1) {
-          return 0
-        }
-        return atual - 1
-      })
-    }, 1000)
+    const tick = () => {
+      const restante = Math.max(
+        0,
+        Math.ceil(((fimSessaoRef.current ?? Date.now()) - Date.now()) / 1000)
+      )
+      setSegundosRestantes(restante)
+      if (restante === 0) {
+        concluirSessao()
+      }
+    }
+
+    intervaloRef.current = setInterval(tick, 250)
 
     return () => limparIntervalo()
-  }, [statusSessao, limparIntervalo])
-
-  useEffect(() => {
-    if (statusSessao === 'executando' && segundosRestantes === 0) {
-      concluirSessao()
-    }
-  }, [statusSessao, segundosRestantes, concluirSessao])
+  }, [statusSessao, limparIntervalo, concluirSessao])
 
   function iniciarFoco() {
     if (statusSessao === 'executando') return
@@ -104,6 +104,7 @@ function PomodoroPage() {
     setErroSessao('')
     setMensagemSessao('')
     finalizandoRef.current = false
+    fimSessaoRef.current = Date.now() + DURACAO_SESSAO * 1000
     setSegundosRestantes(DURACAO_SESSAO)
     setStatusSessao('executando')
   }
@@ -112,6 +113,7 @@ function PomodoroPage() {
     if (statusSessao !== 'executando') return
     limparIntervalo()
     finalizandoRef.current = false
+    fimSessaoRef.current = null
     setStatusSessao('interrompida')
     setSegundosRestantes(DURACAO_SESSAO)
     setErroSessao(MENSAGEM_FOCO_QUEBRADO)
